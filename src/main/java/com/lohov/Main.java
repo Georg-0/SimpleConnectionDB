@@ -1,9 +1,6 @@
 package com.lohov;
 
-import java.sql.Connection;
-import java.sql.Driver;
-import java.sql.DriverManager;
-import java.sql.SQLException;
+import java.sql.*;
 
 public class Main {
 
@@ -12,21 +9,18 @@ public class Main {
     private static final String PASSWORD = "root";
 
     public static void main(String[] args) {
-        Connection connection;//создаем соединение
-
         try {
             Driver driver = new com.mysql.cj.jdbc.Driver();//драйвер и драйвер-менеджер
             DriverManager.registerDriver(driver);
+        } catch (SQLException throwables) {
+            throwables.printStackTrace();
+        }
 
-            connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);//получаем соединение
-            if(!connection.isClosed()){
-                System.out.println("Соединение с БД установлено!");
-            }
-            connection.close();
-            if(connection.isClosed()){
-                System.out.println("Соединение с БД закрыто!");
-            }
-
+        try {
+            Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
+            Statement statement = connection.createStatement();//создаем коннект и стэйт
+            statement.execute("insert into animal(anim_name, anim_desc) values('loh','cat')");        //выполняем стат. запросы
+            statement.executeUpdate("update animal set anim_name = 'Pluha' where anim_desc = 'Dog';");//с помощью statemen.execute и т.д.
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
