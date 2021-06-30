@@ -20,7 +20,7 @@ public class Main {
             Connection connection = DriverManager.getConnection(URL, USERNAME, PASSWORD);
             Statement statement = connection.createStatement();//создаем коннект и стэйт
             statement.execute("insert into animal(anim_name, anim_desc) values('loh','cat')");        //выполняем стат. запросы
-            statement.executeUpdate("update animal set anim_name = 'Pluha' where anim_desc = 'Dog';");//с помощью statemen.execute и т.д.
+            statement.executeUpdate("update animal set anim_name = 'Pluha' where anim_desc = 'Dog';");//с помощью statemen.execute и т.д
         } catch (SQLException throwables) {
             throwables.printStackTrace();
         }
